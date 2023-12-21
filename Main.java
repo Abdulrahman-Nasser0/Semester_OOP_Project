@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 class Circle {
 
-    private double radious;
+    double radious;
 
     Circle(double rad){
         radious = rad;
@@ -85,6 +85,7 @@ public class Main {
                         double radius = Double.parseDouble(input);
                         Circle circle = new Circle(radius);
                         resultLabel.setText("Area: " + (float)circle.getArea() + "    " +  "Perimeter: " + (float)circle.getPerimeter());
+
                     }else if(shape == "Rectangle" ){
                         String[] numbers = input.split(" ");
                         double width = Double.parseDouble(numbers[0]);
@@ -93,7 +94,12 @@ public class Main {
                         Rectangle rectangle = new Rectangle(width, hight);
                         resultLabel.setText("Area: " + (float)rectangle.getArea() + "    " +  "Perimeter: " + (float)rectangle.getPerimeter());
 
+                    }else if(shape == "Square"){
+                        double side = Double.parseDouble(input);
+                        Square square = new Square(side);
+                        resultLabel.setText("Area: " + (float)square.getArea() + "    " + "Perimeter: " + (float)square.getPerimeter());
                     }
+
                 }catch (Exception ex){
                     resultLabel.setText("Invalid input");
                     return;
@@ -102,7 +108,5 @@ public class Main {
         });
 
     }
-
-
 
 }
