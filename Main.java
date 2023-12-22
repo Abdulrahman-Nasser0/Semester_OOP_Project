@@ -46,11 +46,13 @@ public class Main {
         JFrame frame =new JFrame("Perim & area Calculator");
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+
 
         JPanel panel= new JPanel();
         frame.add(panel);
         placeComponents(panel);
-
+        frame.setResizable(false);
         frame.setVisible(true);
 
     }
@@ -59,43 +61,75 @@ public class Main {
         panel.setLayout(null);
         String [] shapes ={"Circle", "Rectangle", "Square"};
         JComboBox<String> shapeList = new JComboBox<>(shapes);
-        shapeList.setBounds(10, 10, 160, 25);
-
+        shapeList.setBounds(100, 50, 160, 25);
         panel.add(shapeList);
 
+        JLabel inputMessageLabel =new JLabel("Choose the shape");
+        inputMessageLabel.setBounds(100, 100, 160, 25);
+        panel.add(inputMessageLabel);
+
+        shapeList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String shape = (String) shapeList.getSelectedItem();
+                String lableName = null;
+
+                if ("Circle".equals(shape)) {
+                    lableName = "Enter Radius :";
+                } else if ("Rectangle".equals(shape)) {
+                    lableName = "Enter Width & Height :";
+                } else if ("Square".equals(shape)) {
+                    lableName = "Enter Side :";
+                }
+                inputMessageLabel.setText(lableName);
+            }
+        });
+
+
+
         JTextField textField =new JTextField(20);
-        textField.setBounds(180, 10, 160, 25);
+        textField.setBounds(100, 130, 160, 25);
         panel.add(textField);
 
         JLabel resultLabel = new JLabel("");
-        resultLabel.setBounds(10, 80, 300, 100);
+        resultLabel.setBounds(90, 230, 300, 100);
+        resultLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
         panel.add(resultLabel);
 
         JButton calculateButton = new JButton("Calculate");
-        calculateButton.setBounds(10, 40, 160, 25);
+        calculateButton.setBounds(100, 200, 160, 25);
         panel.add(calculateButton);
-        //Action
+
+
         calculateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String shape = (String)shapeList.getSelectedItem();
                 String input = textField.getText();
                 try{
-                    if(shape == "Circle"){
+                    if ("Circle".equals(shape)) {
                         double radius = Double.parseDouble(input);
+                        if (radius < 0) {
+                            throw new IllegalArgumentException("Invalid input");
+                        }
                         Circle circle = new Circle(radius);
                         resultLabel.setText("Area: " + (float)circle.getArea() + "    " +  "Perimeter: " + (float)circle.getPerimeter());
 
-                    }else if(shape == "Rectangle" ){
+                    } else if ("Rectangle".equals(shape)) {
                         String[] numbers = input.split(" ");
                         double width = Double.parseDouble(numbers[0]);
-                        double hight = Double.parseDouble(numbers[1]);
-
-                        Rectangle rectangle = new Rectangle(width, hight);
+                        double height = Double.parseDouble(numbers[1]);
+                        if (width < 0 || height < 0) {
+                            throw new IllegalArgumentException("Invalid input");
+                        }
+                        Rectangle rectangle = new Rectangle(width, height);
                         resultLabel.setText("Area: " + (float)rectangle.getArea() + "    " +  "Perimeter: " + (float)rectangle.getPerimeter());
 
-                    }else if(shape == "Square"){
+                    } else if ("Square".equals(shape)) {
                         double side = Double.parseDouble(input);
+                        if (side < 0) {
+                            throw new IllegalArgumentException("Invalid input");
+                        }
                         Square square = new Square(side);
                         resultLabel.setText("Area: " + (float)square.getArea() + "    " + "Perimeter: " + (float)square.getPerimeter());
                     }
