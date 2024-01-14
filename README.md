@@ -73,4 +73,4 @@ Action listeners are employed to respond to events like selecting a shape or cli
 - Hassan Khalaf.
 - Youssef Mohammed.
 
-Feel free to contribute, report issues, or suggest improvements to make this Shape Calculator even better! This project is a collaborative effort, and your insights and contributions are highly valued.
+
